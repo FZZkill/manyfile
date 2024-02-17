@@ -16,14 +16,14 @@
  *
  * Note: This function is called recursively.
  * */
-manyfile::mfiles::mfiles(std::string directory, std::regex re)
+manyfile::Files::Files(std::string directory, std::regex re)
     : entry(std::filesystem::directory_entry(directory)), directory(directory),
       re(std::move(re))
 {
   this->manyfile(this->entry);
 }
 
-manyfile::mfiles::mfiles(std::filesystem::directory_entry entry, std::regex re)
+manyfile::Files::Files(std::filesystem::directory_entry entry, std::regex re)
     : directory(entry.path().filename()), re(std::move(re)), entry(entry)
 {
   this->manyfile(this->entry);
@@ -36,7 +36,7 @@ manyfile::mfiles::mfiles(std::filesystem::directory_entry entry, std::regex re)
  *
  * Note: This function is called recursively.
  * */
-void manyfile::mfiles::manyfile(std::filesystem::directory_entry entry)
+void manyfile::Files::manyfile(std::filesystem::directory_entry entry)
 {
   using namespace std::filesystem;
   if (entry.status().type() == file_type::regular)

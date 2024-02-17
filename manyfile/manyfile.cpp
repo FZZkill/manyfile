@@ -1,4 +1,4 @@
-#include "include/line.hpp"
+#include "include/files.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <regex>
@@ -16,18 +16,18 @@ void p(const std::vector<std::string> &v)
 
 int main(int argc, char *argv[])
 {
-  manyfile::mfiles *f;
+  manyfile::Files *f;
   if (argc == 1)
   {
-    f = new manyfile::mfiles("", std::regex(".*"));  // FIXME: This application
+    f = new manyfile::Files("", std::regex(".*"));  // FIXME: This application
                                                      // will cause abrt if it run this
                                                      // line.
   }
   if(argc == 2) {
-    f = new manyfile::mfiles(argv[1], std::regex(".*"));
+    f = new manyfile::Files(argv[1], std::regex(".*"));
   }
   else {
-    f = new manyfile::mfiles(argv[1], std::regex(argv[2]));
+    f = new manyfile::Files(argv[1], std::regex(argv[2]));
   }
   p(f->getFiles());
   delete f;
