@@ -1,0 +1,23 @@
+---
+BasedOnStyle: llvm
+---
+Language: Cpp
+AccessModifierOffset: -2
+AlignConsecutiveMacros:
+  Enabled: true
+AllowShortBlocksOnASingleLine: Empty
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterNamespace: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+NamespaceIndentation: All
+IndentWidth: 2
+TabWidth: 2
