@@ -1,0 +1,16 @@
+#include <format>
+#include <string>
+
+#ifndef Manyline_config_hpp
+#define MANYLINE_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define MANYLINE_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define MANYLINE_VERSION_PATCH @PROJECT_VERSION_PATCH@
+
+template <int major, int minor, int patch>
+const std::string version = std::format("{}.{}.{}", major, minor, patch);
+
+const std::string VERSION =
+    std::move(version<MANYLINE_VERSION_MAJOR, MANYLINE_VERSION_MINOR,
+                      MANYLINE_VERSION_PATCH>);
+
+#endif // !Manyline_config_hpp
