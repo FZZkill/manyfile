@@ -1,4 +1,4 @@
-#include "../include/line.hpp"
+#include "files.hpp"
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
@@ -17,16 +17,16 @@
  * Note: This function is called recursively.
  * */
 manyfile::Files::Files(std::string directory, std::regex re)
-    : entry(std::filesystem::directory_entry(directory)), directory(directory),
+    : ENTRY(std::filesystem::directory_entry(directory)), DIRECTORY(directory),
       re(std::move(re))
 {
-  this->manyfile(this->entry);
+  this->manyfile(this->ENTRY);
 }
 
 manyfile::Files::Files(std::filesystem::directory_entry entry, std::regex re)
-    : directory(entry.path().filename()), re(std::move(re)), entry(entry)
+    : DIRECTORY(entry.path().filename()), re(std::move(re)), ENTRY(entry)
 {
-  this->manyfile(this->entry);
+  this->manyfile(this->ENTRY);
 }
 
 /*
@@ -44,7 +44,7 @@ void manyfile::Files::manyfile(std::filesystem::directory_entry entry)
     if (std::regex_match(entry.path().filename().string(), this->re))
     {
       this->manyFiles++;
-      this->lfiles.emplace_back(entry.path().string());
+      this->vfiles.emplace_back(entry.path().string());
     }
   }
   else if (entry.status().type() == file_type::directory)
@@ -64,11 +64,15 @@ void manyfile::Files::manyfile(std::filesystem::directory_entry entry)
 
 unsigned int f(std::string filename)
 {
-  unsigned int ui = 0; std::string s;
+  unsigned int ui = 0;
+  std::string s;
   std::ifstream f(filename);
-  while (getline(f, s)) {
-    for(auto &var : s) {
-      if (var != ' ' && var != '\n' && var != '\r'){
+  while (getline(f, s))
+  {
+    for (auto &var : s)
+    {
+      if (var != ' ' && var != '\n' && var != '\r')
+      {
         ui++;
         continue;
       }
