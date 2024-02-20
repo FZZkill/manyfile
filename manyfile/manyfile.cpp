@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
   // TODO: Register all argument
   o.registerArg({"T", "t", true,
-                 [](manyfile::option &opt, std::string) {
+                 [](manyfile::option &opt, std::string_view) {
                    std::cout << "Done" << std::endl;
                  },
                  []() {}})
