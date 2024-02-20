@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 project(Manyfile VERSION 1.0.0)
-include(FetchContent)
 
 set(SOURCE
   manyfile/manyfile.cpp
@@ -11,5 +10,5 @@ configure_file(manyfile/cmake/config.hpp.in manyfile/include/config.hpp)
 add_executable(${PROJECT_NAME} ${SOURCE})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-  ${PROJECT_BINARY_DIR}
+  manyfile/include
 ) 

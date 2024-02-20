@@ -24,11 +24,11 @@ First, You should to clone this repo.
 
 Then use your tool to compile this.
 
-And, It used lots of C++ 17 feature...
+And, It used some C++20 features feature...
 
-### Powershell
+### PowerShell
 
-``` Powershell
+``` PowerShell
 git clone https://github.com/fzzkill/manyfile.git --depth 1
 cd manyfile
 cmake build .
@@ -45,8 +45,6 @@ cmake build .
 cmake --build .
 ```
 
-[x]
-
 # Usage
 > Running this program directly will cause a SigABRT error.
 
@@ -59,7 +57,9 @@ cmake --build .
 - [x] List all file by regex.
 - [ ] Find file by regex.
 - [ ] Find info from input.
-- [ ] Other regular expression syntax
+- [ ] Other regular expression syntax.
+- [ ] Configure file.
+
 # Something else
 
 The project didn't do anything, it was relatively rudimentary.
@@ -69,9 +69,11 @@ After my high school entrance examination, thank you!
 Of course, it will be updated if I have time.
 
 ## Thanks
-[fzf](https://github.com/junegunn/fzf)
+[fzf](https://github.com/junegunn/fzf) Sources of inspiration.
 
-[Neovim](neovim.io)
+[LMFSWS](https://github.com/Lone-Air/LMFSWS) Partial code reference.
+
+[Neovim](neovim.io) What a modern editor!
 
 ### License
 The Mozilla Public License Version 2.0 (MPLv2.0)
