@@ -48,7 +48,42 @@ cmake --build .
 # Usage
 > Running this program directly will cause a SigABRT error.
 
-``Manyfile (path) (ECMAScript Regex)``
+    Manyfile [arguments...]
+    
+    arguments:
+        path [directory Path] p --
+            default path is: './'
+        regex [regex]  r --
+            All supported regular grammars are as follows:
+                icase
+                nosubs
+                optimize
+                collate
+                ECMAScript
+                basic
+                extended
+                awk
+                grep
+                egrep
+                polynomial
+                multiline
+            The default regular grammar is: basic
+        expression [regex expression] e --
+            A regular expression that satisfies the condition
+            The default expression is: searching all files
+        input i --
+            The data from the STDIN
+        output [path] o
+            Store the results in a file
+        help h -- list this
+
+    For example:
+        Manyfile path "./" regex ECMAScript expression ".*"
+        Manyfile p "./" r ECMAScript e ".*"
+
+> Running directly still doesn't work, please try adding parameters:
+>   e ".*" 
+
 
 # Feature
 - [ ] Markdown in multiple languages.

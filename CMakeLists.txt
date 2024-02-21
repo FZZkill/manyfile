@@ -4,6 +4,7 @@ project(Manyfile VERSION 1.0.0)
 set(SOURCE
   manyfile/manyfile.cpp
   manyfile/source/files.cpp
+  manyfile/source/full.cpp
 )
 set(CMAKE_CXX_STANDARD 20)
 configure_file(manyfile/cmake/config.hpp.in manyfile/include/config.hpp)

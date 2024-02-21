@@ -47,15 +47,17 @@ namespace manyfile
     options::fuzzy_search fuzzy_search;
     // options::option_info option_info;
     std::regex_constants::syntax_option_type match_type;
-    std::string re;
-    std::string application;
+    std::string re_s;
+    std::regex re;
+    std::string_view application;
   };
 
   const option doption = {{false, std::filesystem::current_path().string()},
                           {true},
                           {false},
                           std::regex_constants::syntax_option_type::_S_basic,
-                          ".*"};
+                          "",
+                          std::regex(".*", std::regex_constants::_S_basic)};
   namespace argument
   {
 
@@ -71,11 +73,11 @@ namespace manyfile
       const std::string_view catch_name;
       const std::string_view abbreviation;
       const bool continue_catch; // NOTE: Capture only one sub-ginseng.
-      const std::function<void(opttype &, std::string_view)> callback; // TODO:
-                                                                  // More
-                                                                  // arguments
+      const std::function<bool(opttype &, std::string)> &callback; // TODO:
+                                                                   // More
+                                                                   // arguments
       // const std::function<void(opttype option)> callback;
-      const std::function<void()> help;
+      // const std::function<void()> help;
     };
 
     template <typename opttype> class CommandOption
@@ -85,12 +87,11 @@ namespace manyfile
 
       std::unordered_map<std::string_view, CommandArgument<opttype>> catch_list;
       opttype option;
-      const opttype defaultopt;
       const std::string application;
 
     public:
       CommandOption(int argc, char *argv[], const opttype &defaultopt)
-          : application(argv[0]), defaultopt(defaultopt)
+          : application(argv[0]), option(defaultopt)
       {
         for (int i = 1; i < argc; i++)
           this->arguments.push(argv[i]);
@@ -102,9 +103,24 @@ namespace manyfile
         return *this;
       }
 
-      opttype run(std::function<opttype(const opttype &, const opttype &)> fe)
+      CommandOption &
+      registerArg(const std::function<void(opttype &, const std::string_view &)>
+                      &callback)
       {
-        std::string_view l, t;
+        callback(this->option, this->application);
+        return *this;
+      }
+      CommandOption &registerArg(std::string_view command)
+      {
+        if (this->arguments.empty())
+          this->arguments.push(command); // TODO:
+        return *this;
+      }
+
+      opttype run()
+      {
+        std::string_view l;
+        std::string t;
         while (!this->arguments.empty())
         {
           l = this->arguments.front();
@@ -129,9 +145,11 @@ namespace manyfile
               this->arguments.pop();
             }
           }
-          var.callback(this->option, t);
+          if (!var.callback(this->option, t))
+            std::cerr << std::format("Error: Unknown subparameter: {}", t)
+                      << "\n";
         }
-        return fe(this->option, this->defaultopt);
+        return this->option;
       }
     };
 
